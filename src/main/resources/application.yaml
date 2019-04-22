@@ -1,0 +1,11 @@
+server:
+  port: 8998
+  servlet:
+    context-path: /crud
+debug: false
+spring:
+  messages:
+    basename: i18n.login
+    #关闭缓存
+  thymeleaf:
+    cache: false

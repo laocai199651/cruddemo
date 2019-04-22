@@ -13,10 +13,24 @@ public class EmployeeContrl {
     @Autowired
     EmployeeDao employeeDao;
 
+    /**
+     * 员工列表页面
+     * @param model
+     * @return
+     */
     @GetMapping("/emps")
     public String emps(Model model) {
-        model.addAttribute(employeeDao.getAll());
+        model.addAttribute("emps", employeeDao.getAll());
         return "emp/list";
+    }
+
+    /**
+     * 员工添加页面
+     * @return
+     */
+    @GetMapping("/emp")
+    public String emp(){
+        return "emp/add";
     }
 
 }

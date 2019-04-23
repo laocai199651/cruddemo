@@ -1,5 +1,7 @@
 package com.cwk.springbootweb.cruddemo.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Employee {
@@ -11,6 +13,7 @@ public class Employee {
     //1 male, 0 female
     private Integer gender;
     private Department department;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date birth;
 
     public Integer getId() {

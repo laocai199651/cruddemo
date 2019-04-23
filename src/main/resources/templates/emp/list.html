@@ -70,13 +70,18 @@
                         <td th:text="${emp.department.departmentName}"></td>
                         <td th:text="${#dates.format(emp.birth, 'yyyy-MM-dd')}"></td>
                         <td>
-                            <button class="btn btn-sm btn-primary">编辑</button>
-                            <button class="btn btn-sm btn-danger">删除</button>
+                            <a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}">编辑</a>
+                            <button type="submit" th:attr="deleteUrl=@{/emp/}+${emp.id}"
+                                    class="btn btn-sm btn-danger deleteEmpBtn">删除
+                            </button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+            <form id="deleteEmpForm" method="post">
+                <input type="hidden" name="_method" value="delete">
+            </form>
         </main>
     </div>
 </div>
@@ -86,5 +91,13 @@
 <script type="text/javascript" th:src="@{/asserts/js/feather.min.js}"></script>
 <script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}"></script>
 <script type="text/javascript" th:src="@{/asserts/js/dashboard.js}"></script>
+<script>
+
+    $(".deleteEmpBtn").on("click", function () {
+        $("#deleteEmpForm").attr("action", $(this).attr("deleteUrl")).submit()
+        return false;
+    })
+
+</script>
 </body>
 </html>

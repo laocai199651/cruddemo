@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
+
 @Component
 public class MyErrorAttributes extends DefaultErrorAttributes {
 
@@ -13,7 +14,8 @@ public class MyErrorAttributes extends DefaultErrorAttributes {
         Map<String, Object> map = super.getErrorAttributes(webRequest, includeStackTrace);
         map.put("server", "dsg005");
         Map myext = (Map) webRequest.getAttribute("myext", 0);
-        map.putAll(myext);
+        if (myext != null)
+            map.putAll(myext);
         return map;
     }
 }

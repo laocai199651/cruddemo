@@ -1,20 +1,19 @@
 package com.cwk.springbootweb.cruddemo.config;
 
-import com.cwk.springbootweb.cruddemo.component.LoginIntercepter;
 import com.cwk.springbootweb.cruddemo.component.SwichLanguage;
 import com.cwk.springbootweb.cruddemo.filter.MyFilter;
 import com.cwk.springbootweb.cruddemo.listener.Mylistener;
 import com.cwk.springbootweb.cruddemo.servlet.MyServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.web.ResourceProperties;
-import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryCustomizer;
-import org.springframework.boot.autoconfigure.web.servlet.TomcatServletWebServerFactoryCustomizer;
+import org.springframework.boot.web.server.WebServer;
+import org.springframework.boot.web.server.WebServerException;
 import org.springframework.boot.web.server.WebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -72,10 +71,15 @@ public class MyMVCConfig implements WebMvcConfigurer {
     @Bean
     public ServletListenerRegistrationBean myListener() {
         ServletListenerRegistrationBean<Mylistener> registrationBean = new
-                ServletListenerRegistrationBean<Mylistener>(new Mylistener());
+                ServletListenerRegistrationBean<>(new Mylistener());
         return registrationBean;
     }
 
+
+    @Bean
+    public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> webServerFactoryCustomizer() {
+        return factory -> factory.setPort(9090);
+    }
 
     //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
